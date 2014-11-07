@@ -2,9 +2,18 @@ package cram
 
 import (
 	"github.com/pelmers/cram/shapes"
-	"net/http"
 	"strings"
 )
+
+// The body of the POST request the client generates.
+type PostForm struct {
+	// the code to be crammed
+	Contents string
+	// the shape to transform the code into (e.g. "rectangle")
+	Shape string
+	// the height:width ratio to use
+	Ratio float64
+}
 
 func pickReshaper(option string) shapes.Reshaper {
 	switch option {
@@ -25,9 +34,4 @@ func pickReshaper(option string) shapes.Reshaper {
 	return func(tok []string, _ float64) string {
 		return strings.Join(tok, "  ")
 	}
-}
-
-func init() {
-	http.HandleFunc("/", Index)
-	http.HandleFunc("/post", handlejs)
 }

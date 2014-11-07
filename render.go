@@ -7,10 +7,6 @@ import (
 	"net/http"
 )
 
-func Index(w http.ResponseWriter, r *http.Request) {
-	render(w, "index.html")
-}
-
 // render a static file in the templates/ directory
 func render(w http.ResponseWriter, tmpl string) {
 	// prepend templates/ to tmpl string

@@ -14,7 +14,9 @@
             // just default to rectangle
             shape = "rect";
         }
-        xhr.open("POST","/post", true);
+        // eventually this will pick a specific endpoint based on langauge
+        // but right now only js is supported
+        xhr.open("POST","/post/js", true);
         xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4) {
