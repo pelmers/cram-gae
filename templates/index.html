@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CodeCrammer</title>
+<link rel='stylesheet' type='text/css' href='/static/lib/codemirror/codemirror.css'>
+<link rel='stylesheet' type='text/css' href='/static/css/index.css'>
+</head>
+<body>
+    <div id="ioBar">
+        <div id="uploadCode" class="button">Upload</div>
+        <div id="linkCode" class="button">From URL</div>
+    </div>
+    <div id="actionBar">
+        <select id="shapeSelect">
+            <option value="" disabled selected>Pick a shape</option>
+            <option value="rect">Wall</option>
+            <option value="ellipse">Sun</option>
+            <option value="pepper">Pepper</option>
+            <option value="trapezoid">Volcano</option>
+            <option value="diamond">Diamond</option>
+            <option value="triangle">Pyramid</option>
+        </select>
+        <input type="number" id="ratioInput" value="2.25"></input>
+        <div id="submitCode" class="button">Submit</div>
+    </div>
+    <textarea id="codeInput">
+                                           function DAG (graph){"use strict" ; 
+                                   if (graph===undefined) {graph={ };}var  g = graph, 
+                              nprops={}, eprops ={ }; function _graph(){return g;}function 
+                          transpose (){  var p={};for  (var n in g){if  (!g.hasOwnProperty(n ))
+                       continue;p[n ]=[];}for (var n in g){if (!g .hasOwnProperty(n))continue;for (
+                    var c =0;c<g[n].length;c++){p[g[n][c]].push(n);}}return DAG(p);}function numNodes(
+                 ){  var  total=  0; for  (var n in  g ){if  (!g.hasOwnProperty  (n))continue; total++;}
+               return total;}function children(node ){ return g[node];} function addNode(id,children){ if (
+             children===undefined){children=[];}g[id] =children;}function addEdge(from,to){g[from].push(to);}
+           function setProperty(node,prop,val){ if (nprops [node]===undefined){nprops[ node]={};}nprops[node][
+         prop]=val; }function property( node,prop){ return nprops[node ][prop];} function setEdgeProperty(fr,to,
+        prop,val){ if  (eprops[[fr,to]]===undefined ){eprops[ [fr, to]]={};}eprops [[fr,to]][prop]=val;}function 
+       edgeProperty(fr,to,prop){ return eprops[[ fr,to] ][prop];}function dfs(start_node,visitor,visit_all ){  var 
+      history={};var  to_visit=(visit_all) ?numNodes():0;if (typeof visitor !== "function"){visitor=function(n){ };}
+     function visit(n){if (history[n]===undefined){history[n]=true;to_visit-- ;for (var i=0;i<g[n].length;i++){visit(
+    g[n] [i ]) ;}visitor(n);}}visit(start_node ); if (! visit_all)return; while (to_visit>0){for (var n in g){if (! g.
+   hasOwnProperty(n ))continue;if (history[n]===undefined){start_node=n;break;}}visit(start_node);}}function topsort()
+   { var start_node=null;var o=  [] ;for (var  n in g){if  (!g.hasOwnProperty(n) )continue; start_node =n;break;} dfs( 
+  start_node,function(n){o.push(n);},true);o.reverse();return o;}function bfs(start_node,visitor){ var d={};var que =[]
+  ;var cur=null;if (typeof  visitor!=="function"){visitor=function(n){};}d[start_node]=0;que.push( start_node);while  (
+  que.length>0){cur=que.shift();for (var c=0;c<g[cur].length; c++){if (d[g[cur][c]]===undefined){que.push(g[cur][c]);d[g
+  [cur][c]]=d[cur]+1;visitor(g[cur][c]);}}}return d; }function layers(start){  var d=bfs(start);var layers={};for (var i
+   in d) {if (!d. hasOwnProperty (i))continue;if (layers[d[i] ]===undefined){layers[d[i]  ]=[] ;}layers[d[i]].push(i) ;}
+  return layers; }function constrained_maximum(mapping,nodes,value){ var val=0;var key=[];for (var  i=0;i<nodes.length;
+  i++){if (mapping[nodes[i]]>val){val=mapping [nodes[i]];key=[nodes[i]];}else  if  (mapping[nodes[i] ]===val){key.push(
+   nodes[i]);}}return (value)?val:key;}function cpl(prop){ var ts=topsort(),pl= {},tpose=transpose();for (var i=0;i<ts.
+   length;i++){var weight=property(ts[i],prop);var incoming=constrained_maximum(pl,tpose.children(ts[ i]),true);pl[ts[
+    i ]] =( (weight===undefined)?0:weight)+ ((incoming===undefined)?0:incoming);}return pl ;}function crit_paths(prop,
+     backtrack_criterion){  var ts=topsort(),pl=cpl(prop),tpose=transpose(),paths=[];function backtrack(current_path)
+      {  var phead  =current_path [current_path.length- 1]   ;if (tpose  . children(phead). length >0 ){ var heads =
+       constrained_maximum(pl,tpose.children(phead));heads=heads?heads:tpose.children(phead) ;for (var h=0;h<heads.
+        length; h++ )backtrack( current_path.  concat( heads[h ]));} else {current_path.reverse( )  ;paths. push(
+         current_path) ; }}  var heads =[] ;backtrack_criterion   =     (backtrack_criterion  !==   undefined) ?
+           backtrack_criterion:function(id){}; for (var i=0;i<ts.length; i++)if  (children(ts[i]).length=== 0 
+             &&backtrack_criterion(ts[i]))heads.push(ts[ i]); for (var h=0 ;h<heads.length; h++ )backtrack([ 
+               heads[h] ]); return {'length':pl[heads[heads.length-1]],'paths':paths,};}function sum(prop){
+                  var r=0;for  (var n in g){if (!g.hasOwnProperty(n))continue;var v=property(n,prop);r+=
+                    (v)?v:0;}return r;} return {graph :_graph,addNode:addNode,addEdge:addEdge,children
+                       :children ,  property: property  ,setProperty : setProperty ,edgeProperty:  
+                          edgeProperty ,setEdgeProperty:setEdgeProperty,dfs:dfs,topsort:topsort
+                              , transpose:  transpose ,bfs:  bfs ,layers: layers ,cpl: cpl,
+                                   crit_paths   : crit_paths,  sum  : sum,    } ;    }
+    </textarea>
+    <script src='/static/lib/codemirror/codemirror-compressed.js'></script>
+    <script src='/static/js/main.js'></script>
+</body>
+</html>
