@@ -30,8 +30,8 @@ func pickReshaper(option string) shapes.Reshaper {
 	case "pepper":
 		return shapes.Pepper
 	}
-	// default choice is to just concatenate everything
+	// default choice is to just concatenate everything on one line
 	return func(tok []string, _ float64) string {
-		return strings.Join(tok, "  ")
+		return strings.Join(tok, "")
 	}
 }

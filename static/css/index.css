@@ -3,22 +3,61 @@ body {
     color: rgb(240, 240, 240);
 }
 
+h1 {
+    background: rgba(120, 120, 120, 0.2);
+    text-align: center;
+    font-size: 2.4em;
+    font-family: sans-serif;
+    margin-bottom: 6px;
+}
+
 .CodeMirror {
+    clear: both;
     height: 100%;
-    margin-top: 18px;
     background: rgba(255,255,255,0.8);
+}
+
+#actionBar {
+}
+
+#shapeSelect {
+    display: table;
+}
+
+#ratioInput {
+    position: relative;
+    top: 15px;
+    background: rgba(80, 80, 80, 0.7);
+    border: 3px solid rgba(100, 100, 100, 0.8);
+}
+
+#ratioText {
+    color: rgb(255, 255, 50);
+    font-weight: bold;
+}
+
+#submitCode {
+    position: relative;
+    bottom: 0.5em;
+    background: rgba(30, 150, 30, 0.9);
+    border: 3px solid rgba(50, 170, 0, 0.8);
+    font-size: 1.5em;
+    float: right;
 }
 
 .button {
     cursor: pointer;
     background: rgba(0, 50, 130, 0.9);
+    border: 3px solid rgba(0, 50, 255, 0.8);
     display: inline;
     font-family: sans-serif;
     vertical-align: middle;
-    padding: 10px;
+    padding: 3px;
     margin-bottom: 6px;
+    margin-right: 5px;
 }
 
 .selected {
     background: rgba(130, 50, 0, 0.9);
+    border: 3px solid rgba(255, 50, 0, 0.8);
 }

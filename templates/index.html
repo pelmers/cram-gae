@@ -16,36 +16,33 @@
             <div id="trapezoid" class="button">Volcano</div>
             <div id="diamond" class="button">Diamond</div>
             <div id="triangle" class="button">Pyramid</div>
+            <div id="oneline" class="button">One-liner</div>
         </div>
-        <div id="ratioInput" class="button">Ratio: 2.25</div>
+        <div id="ratioInput" class="button">Ratio: <span id="ratioText">2.25</span></div>
         <div id="submitCode" class="button">Submit</div>
     </div>
     <textarea id="codeInput">
-                              (  function(   ){var textArea=
-                      document  .getElementById( "codeInput"  ) ,  
-                 codeMirror=CodeMirror.fromTextArea(textArea, { mode :  
-              "javascript" , }  ),selectedShape  =null;  function postCode( 
-           language,code,ratio,shape,callback) {var xhr=new XMLHttpRequest() ; 
-        xhr . open("POST" ,"/post/"+ language, true ) ; xhr .setRequestHeader  ( 
-      'Content-Type', 'application/json; charset=UTF-8' );xhr.onreadystatechange = 
-     function ( ) { if (xhr.readyState== 4){callback(xhr.response);} };xhr.send(JSON.
-    stringify({Shape:shape,Ratio :ratio,Contents:code,}));}function getSelectedShape()
-   {return selectedShape;}function setSelectedShape(shapeName ){document.getElementById
-  ( shapeName) . classList.add(  'selected'   ) ;if  ( selectedShape !==null)document. 
-  getElementById (selectedShape).classList.remove( 'selected');selectedShape=shapeName;}
-  setSelectedShape  (  "rect"  ); function getRatio() { return parseFloat   ( document. 
-  getElementById(  "ratioInput").innerHTML . slice(7)) ;} var shapeDivs   =   document. 
-  getElementById ("shapeSelect").children;for  (var  i=0;i <shapeDivs.length;i++  ){  (
-   function (id){document.getElementById(id).addEventListener (  'click' ,function ( ){
-    setSelectedShape(id)  ;}); }) (shapeDivs  [i].getAttribute ("id" )) ;   }document.
-     getElementById("ratioInput") .addEventListener('wheel',function(e){function sign
-      (val){return  (val>= 0)  ?1: -1 ;} this.innerHTML ="Ratio: "+Math.max(0.05  ,
-        getRatio()+-0.05  *sign(e.deltaY)).toFixed(2);});document.getElementById(
-           "submitCode")  .addEventListener(  'click'  ,function () {var code =
-              codeMirror.getValue (),ratio=getRatio(),shape=getSelectedShape
-                 ( );if (shape == "" ){shape="rect";}postCode("js",code,
-                      ratio ,shape, function(response) {codeMirror.
-                             setValue(response);});});}) ();
+                                   (function (  )  { "use strict;"  var 
+                         textArea=document.getElementById ("codeInput"),codeMirror
+                  =CodeMirror.fromTextArea(textArea,{mode:"javascript"}) ,selectedShape=
+              null ,shapeDivs =document .getElementById("shapeSelect") .children ; function  
+          postCode(language,code,ratio ,shape,callback){var xhr=new  XMLHttpRequest ();xhr.open(
+        "POST"   , "/post/"  +language  , true  )  ;xhr  .  setRequestHeader   ('Content-Type'  ,  
+     'application/json; charset=UTF-8');xhr.onreadystatechange =function(){if  (xhr .readyState== 4){
+    callback(xhr.response); } };xhr.send(JSON.stringify({Shape:shape,Ratio:ratio,Contents :code ,}) );}
+   function getSelectedShape() {return selectedShape  ;}function setSelectedShape(shapeName) {document. 
+  getElementById(shapeName).classList.add('selected');if (selectedShape!==null) {document.getElementById
+  (selectedShape ) . classList. remove('selected');} selectedShape=shapeName;}setSelectedShape( "rect" );
+  function getRatio(){return parseFloat(document.getElementById("ratioText").innerHTML);} for  (var i=0;
+   i<shapeDivs.length;i++){(function(id){document.getElementById(id).addEventListener('click',function( 
+    ){setSelectedShape ( id) ; } );  })  (shapeDivs[i] .getAttribute ("id")); }document.getElementById(
+     "ratioInput").addEventListener('wheel',function(e){function sign(val){return (val>= 0)? 1:-1;  }
+        document.getElementById("ratioText").innerHTML="" +Math.max(0.05 ,getRatio()+-0.05 *sign(e.
+          deltaY)).toFixed(2);});document.getElementById( "submitCode").addEventListener('click'
+              ,function (){var  code =codeMirror .getValue() , ratio  =getRatio( ) ,shape =  
+                  getSelectedShape();if  (shape=="" ){shape="rect";}postCode("js",code ,
+                         ratio, shape,function( response) {codeMirror. setValue(  
+                                  response );  }  )   ;})  ;  })  ( ) ; 
     </textarea>
     <script src='/static/lib/codemirror/codemirror-compressed.js'></script>
     <script src='/static/js/main.js'></script>

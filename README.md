@@ -1,1 +1,1 @@
-See it here: codecrammer.appspot.com
+See it here: http://codecrammer.appspot.com/
