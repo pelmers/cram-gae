@@ -1,10 +1,9 @@
 body {
-    background: rgba(5,5,5,0.9);
     color: rgb(240, 240, 240);
+    background: linear-gradient(to bottom, #4d4d4d 0%,#0e0e0e 100%);
 }
 
 h1 {
-    background: rgba(120, 120, 120, 0.2);
     text-align: center;
     font-size: 2.4em;
     font-family: sans-serif;
@@ -14,7 +13,7 @@ h1 {
 .CodeMirror {
     clear: both;
     height: 100%;
-    background: rgba(255,255,255,0.8);
+    background: rgba(255,255,225,0.8);
 }
 
 #actionBar {
@@ -45,6 +44,10 @@ h1 {
     float: right;
 }
 
+#submitCode:hover {
+    border: 3px solid rgba(50, 255, 0, 1.0);
+}
+
 .button {
     cursor: pointer;
     background: rgba(0, 50, 130, 0.9);
@@ -55,6 +58,11 @@ h1 {
     padding: 3px;
     margin-bottom: 6px;
     margin-right: 5px;
+    border-radius: 3px;
+}
+
+.button:hover {
+    border: 3px solid rgba(255, 50, 0, 0.6);
 }
 
 .selected {
